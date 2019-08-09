@@ -1,7 +1,7 @@
-#Teracode's School Service
+# Teracode's School Service
 
 
-##To start the application:
+## To start the application:
 
 
 1) go to application.properties file and complete the root password of mysql.
@@ -22,14 +22,14 @@ There is a postman_collection.json with the available endpoints.
 
 [POSTMAN](https://www.getpostman.com/downloads/)
 
-##Questionnaire
+## Questionnaire
 
 
-###A
+### A
 
    Diagram-1
   
-###B
+### B
 
   ```
   SELECT id as id, first_name as firstName, last_name as lastName, SUBSTR(last_name, 1, 1) as alpha 
@@ -38,7 +38,7 @@ There is a postman_collection.json with the available endpoints.
   ORDER BY SUBSTR(last_name, 1, 1)
   ```
   
-###C
+### C
   ```
    SELECT p.id as id, p.first_name as firstName, p.last_name as lastName, GROUP_CONCAT(s.name) as subjects
    FROM person p 
@@ -47,7 +47,7 @@ There is a postman_collection.json with the available endpoints.
    where p.type = 'STUDENT' GROUP BY p.id
   ```          
 
-###D
+### D
  1) Table-Per-Hierarchy (TPH) (Used in this service - Diagram-1):
  
  
@@ -81,7 +81,7 @@ There is a postman_collection.json with the available endpoints.
  For example, SELECT queries will contain JOIN clauses and their number will be equal to the number of classes in hierarchy.
  - A large number of tables in the database.
  
-###E
+### E
 
 Query:
 ```SELECT * FROM janitor j
@@ -112,7 +112,7 @@ changes:
 * Remove the useless employee inner join (TPT)
 * Select just the fields that i need (firstName - lastName) and concat.
 
-###F
+### F
 
 The app has a report endpoint to get the expenses of the school, this query is used
 ```
@@ -133,7 +133,7 @@ to make the query go faster:
 with 1 hour expiration time and cache evicting whenever a new Employee is created, or you can
 use the MySQL Server Query Cache.
 
-###G
+### G
 ```
 SELECT p.id, p.first_name as firstName, p.last_name as lastName, TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) as age 
       from Person p 
@@ -143,7 +143,7 @@ to make the query go faster:
 
 * Index type
 
-###H
+### H
 
 Define a trigger that intercepts the creation/update of new persons. (in the example im just setting to null the values 
 that a student must not get in insertion)
