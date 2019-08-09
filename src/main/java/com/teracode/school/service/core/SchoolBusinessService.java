@@ -2,6 +2,7 @@ package com.teracode.school.service.core;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -71,10 +72,10 @@ public interface SchoolBusinessService {
   /**
    * Point B
    *
-   * @return a {@link List} of {@link StudentLastNameOrderView}
+   * @return a {@link LinkedList} of {@link StudentLastNameOrderView}
    * corresponding to that group.
    */
-  List<StudentLastNameOrderView> getAllStudentsGroupByFirstLetterOfLastName();
+  LinkedList<StudentLastNameOrderView> getAllStudentsGroupByFirstLetterOfLastName();
 
   /**
    * Point C

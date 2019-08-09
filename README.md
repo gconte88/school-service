@@ -35,7 +35,7 @@ There is a postman_collection.json with the available endpoints.
   SELECT id as id, first_name as firstName, last_name as lastName, SUBSTR(last_name, 1, 1) as alpha 
   FROM person 
   where type = 'STUDENT' 
-  ORDER BY SUBSTR(last_name, 1, 1)
+  ORDER BY alpha
   ```
   
 ### C

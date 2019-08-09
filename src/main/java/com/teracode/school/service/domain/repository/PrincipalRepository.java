@@ -21,5 +21,7 @@ public interface PrincipalRepository extends PersonBaseRepository<Principal>  {
              + "LEFT JOIN PERSON AS ppal ON ppal.type = 'PRINCIPAL'and ppal.id = p.id", nativeQuery = true)
   ExpensesReportView getExpenses();
 
+  long count();
+
 
 }

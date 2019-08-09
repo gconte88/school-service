@@ -23,6 +23,7 @@
         <liquibase.version>3.7.0</liquibase.version>
         <google.guava.version>28.0-jre</google.guava.version>
         <lombok.version>1.18.8</lombok.version>
+        <flyway.version>5.2.4</flyway.version>
 
     </properties>
 
@@ -54,10 +55,10 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--LIQUIBASE-->
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
         </dependency>
         <!--GUAVA-->
         <dependency>

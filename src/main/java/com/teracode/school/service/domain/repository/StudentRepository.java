@@ -1,5 +1,6 @@
 package com.teracode.school.service.domain.repository;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.teracode.school.service.domain.model.Student;
@@ -18,8 +19,8 @@ public interface StudentRepository extends PersonBaseRepository<Student> {
   @Query(value = "SELECT id as id, first_name as firstName, last_name as lastName, SUBSTR(last_name, 1, 1) as alpha "
       + "FROM person "
       + "where type = 'STUDENT' "
-      + "ORDER BY SUBSTR(last_name, 1, 1)", nativeQuery = true)
-  List<StudentLastNameOrderView> getAllStudentsGroupedByLastNameFirstLetter();
+      + "ORDER BY alpha", nativeQuery = true)
+  LinkedList<StudentLastNameOrderView> getAllStudentsGroupedByLastNameFirstLetter();
 
   @Query(value = "select p.id as id, p.first_name as firstName, p.last_name as lastName, GROUP_CONCAT(s.name) as subjects "
       + "FROM person p "

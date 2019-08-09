@@ -1,8 +1,6 @@
 package com.teracode.school.service.api;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.teracode.school.service.common.dto.*;
 import com.teracode.school.service.common.dto.view.ExpensesReportViewDTO;
@@ -72,10 +70,10 @@ public interface SchoolService {
   /**
    * Point B
    *
-   * @return a {@link Map} with the key as the student's first last name letter and a {@link List}
+   * @return a {@link LinkedHashMap} with the key as the student's first last name letter and a {@link LinkedList}
    * of {@link StudentLastNameOrderViewDTO} corresponding to that group.
    */
-  Map<String, List<StudentLastNameOrderViewDTO>> getAllStudentsGroupByFirstLetterOfLastName();
+  LinkedHashMap<String, List<StudentLastNameOrderViewDTO>> getAllStudentsGroupByFirstLetterOfLastName();
 
   /**
    * Point C

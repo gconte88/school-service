@@ -2,6 +2,7 @@ package com.teracode.school.service.core;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -47,6 +48,8 @@ public class SchoolBusinessServiceImpl implements SchoolBusinessService {
   @Transactional
   @Override
   public Principal createPrincipal(String firstName, String lastName, BigDecimal salary) {
+
+    Preconditions.checkArgument(this.principalRepository.count() == 0, "school.service.error.pricipal.already.created");
 
     Preconditions.checkArgument(!StringUtils.isEmpty(firstName), "school.service.error.principal.firstName.required");
     Preconditions.checkArgument(!StringUtils.isEmpty(lastName), "school.service.error.principal.lastName.required");
@@ -108,7 +111,7 @@ public class SchoolBusinessServiceImpl implements SchoolBusinessService {
   }
 
   @Override
-  public List<StudentLastNameOrderView> getAllStudentsGroupByFirstLetterOfLastName() {
+  public LinkedList<StudentLastNameOrderView> getAllStudentsGroupByFirstLetterOfLastName() {
     return this.studentRepository.getAllStudentsGroupedByLastNameFirstLetter();
   }
 

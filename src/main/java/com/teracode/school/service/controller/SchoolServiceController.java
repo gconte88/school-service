@@ -1,5 +1,6 @@
 package com.teracode.school.service.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -88,13 +89,13 @@ public class SchoolServiceController implements SchoolService {
 
   @GetMapping(value = "/student/order-by-last-name")
   @Override
-  public Map<String, List<StudentLastNameOrderViewDTO>> getAllStudentsGroupByFirstLetterOfLastName() {
+  public LinkedHashMap<String, List<StudentLastNameOrderViewDTO>> getAllStudentsGroupByFirstLetterOfLastName() {
 
-    Map<String, List<StudentLastNameOrderViewDTO>> allStudentsGroupByFirstLetterOfLastName =
+    LinkedHashMap<String, List<StudentLastNameOrderViewDTO>> allStudentsGroupByFirstLetterOfLastName =
         this.schoolBusinessService.getAllStudentsGroupByFirstLetterOfLastName().stream().map(
             studentView -> new StudentLastNameOrderViewDTO(studentView.getAlpha(), studentView.getFirstName(),
                 studentView.getLastName(), studentView.getId()))
-            .collect(Collectors.groupingBy(StudentLastNameOrderViewDTO::getAlpha));
+            .collect(Collectors.groupingBy(StudentLastNameOrderViewDTO::getAlpha, LinkedHashMap::new, Collectors.toList()));
 
     return allStudentsGroupByFirstLetterOfLastName;
   }
