@@ -11,7 +11,6 @@ import com.teracode.school.service.domain.type.WorkingAreaType;
  * @author Gonzalo Conte
  */
 @Entity
-//@Table(name = "janitor")
 @DiscriminatorValue(value= PersonDiscriminatorType.Values.JANITOR)
 public class Janitor extends Employee {
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PrincipalRepository extends PersonBaseRepository<Principal>  {
 
+  //TODO: Create a reports repository.
   @Query(value = "SELECT  SUM(p.salary) as totalExpenses, ROUND(AVG(p.salary),2) as averageSalary, MIN(p.salary) as minimumSalary, "
              + "MAX(p.salary) as maximumSalary, SUM(j.salary) "
              + "as janitorsSalary, SUM(t.salary) as teachersSalary, "

@@ -10,7 +10,6 @@ import com.teracode.school.service.domain.type.PersonDiscriminatorType;
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="type",
                      discriminatorType = DiscriminatorType.STRING)
 public abstract class Person {

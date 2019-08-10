@@ -12,7 +12,6 @@ import com.teracode.school.service.domain.type.PersonDiscriminatorType;
  * @author Gonzalo Conte
  */
 @Entity
-//@Table(name = "teacher")
 @DiscriminatorValue(value = PersonDiscriminatorType.Values.TEACHER)
 public class Teacher extends Employee {
 

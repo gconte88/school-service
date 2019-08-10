@@ -13,7 +13,6 @@ import com.teracode.school.service.domain.type.PersonDiscriminatorType;
  */
 
 @Entity
-//@Table(name = "employee")
 @DiscriminatorValue(value= PersonDiscriminatorType.Values.EMPLOYEE)
 public class Employee extends Person {
 
