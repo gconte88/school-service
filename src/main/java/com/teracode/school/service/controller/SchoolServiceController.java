@@ -94,26 +94,19 @@ public class SchoolServiceController implements SchoolService {
   @Override
   public LinkedHashMap<String, List<StudentLastNameOrderViewDTO>> getAllStudentsGroupByFirstLetterOfLastName() {
 
-    LinkedHashMap<String, List<StudentLastNameOrderViewDTO>> allStudentsGroupByFirstLetterOfLastName =
-        this.schoolBusinessService.getAllStudentsGroupByFirstLetterOfLastName().stream().map(
-            student -> new StudentLastNameOrderViewDTO(String.valueOf(student.getLastName().charAt(0)),
-                student.getFirstName(), student.getLastName(), student.getId()))
-            .sorted(Comparator.comparing(studentLastNameOrderViewDTO -> studentLastNameOrderViewDTO.getAlpha()))
-            .collect(
-                Collectors.groupingBy(StudentLastNameOrderViewDTO::getAlpha, LinkedHashMap::new, Collectors.toList()));
-
-    return allStudentsGroupByFirstLetterOfLastName;
+    return  this.schoolBusinessService.getAllStudentsGroupByFirstLetterOfLastName().stream().map(
+        student -> new StudentLastNameOrderViewDTO(String.valueOf(student.getLastName().charAt(0)),
+            student.getFirstName(), student.getLastName(), student.getId()))
+        .sorted(Comparator.comparing(studentLastNameOrderViewDTO -> studentLastNameOrderViewDTO.getAlpha()))
+        .collect(
+            Collectors.groupingBy(StudentLastNameOrderViewDTO::getAlpha, LinkedHashMap::new, Collectors.toList()));
   }
 
   @GetMapping(value = "/student/assigned")
   @Override
   public Set<StudentEnrolledToSubjectViewDTO> getAllStudentsEnrolledToSubject() {
-    return this.schoolBusinessService.getAllStudentsEnrolledToSubject().stream().filter(new Predicate<Student>() {
-      @Override
-      public boolean test(Student student) {
-        return !CollectionUtils.isEmpty(student.getSubjects());
-      }
-    }).map(studentEnrolledToSubjectView -> new StudentEnrolledToSubjectViewDTO(
+    return this.schoolBusinessService.getAllStudentsEnrolledToSubject().stream().filter(
+        student -> !CollectionUtils.isEmpty(student.getSubjects())).map(studentEnrolledToSubjectView -> new StudentEnrolledToSubjectViewDTO(
         studentEnrolledToSubjectView.getSubjects().stream().map(GetSubjectName.INSTANCE).collect(Collectors.toList()),
         studentEnrolledToSubjectView.getFirstName(), studentEnrolledToSubjectView.getLastName(),
         studentEnrolledToSubjectView.getId())).collect(Collectors.toSet());

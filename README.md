@@ -30,22 +30,36 @@ There is a postman_collection.json with the available endpoints.
    Diagram-1
   
 ### B
+```aidl
+return  this.schoolBusinessService.getAll().stream().map(
+    student -> new StudentLastNameOrderViewDTO(String.valueOf(student.getLastName().charAt(0)),
+        student.getFirstName(), student.getLastName(), student.getId()))
+    .sorted(Comparator.comparing(studentLastNameOrderViewDTO -> studentLastNameOrderViewDTO.getAlpha()))
+    .collect(
+        Collectors.groupingBy(StudentLastNameOrderViewDTO::getAlpha, LinkedHashMap::new, Collectors.toList()));
+```
 
-  ```
-  SELECT id as id, first_name as firstName, last_name as lastName, SUBSTR(last_name, 1, 1) as alpha 
-  FROM person 
-  where type = 'STUDENT' 
-  ORDER BY alpha
-  ```
-  
 ### C
-  ```
-   SELECT p.id as id, p.first_name as firstName, p.last_name as lastName, GROUP_CONCAT(s.name) as subjects
-   FROM person p 
-   inner join STUDENT_SUBJECT ss on ss.student_id = p.id
-   inner join SUBJECT s on ss.subject_id = s.id
-   where p.type = 'STUDENT' GROUP BY p.id
-  ```          
+```aidl
+return this.schoolBusinessService.getAll().stream().filter(
+    student -> !CollectionUtils.isEmpty(student.getSubjects())).map(studentEnrolledToSubjectView -> new StudentEnrolledToSubjectViewDTO(
+    studentEnrolledToSubjectView.getSubjects().stream().map(GetSubjectName.INSTANCE).collect(Collectors.toList()),
+    studentEnrolledToSubjectView.getFirstName(), studentEnrolledToSubjectView.getLastName(),
+    studentEnrolledToSubjectView.getId())).collect(Collectors.toSet());
+```
+
+Where GetSubjectName is:
+```
+public class GetSubjectName implements Function<Subject, String> {
+
+  public static GetSubjectName INSTANCE = new GetSubjectName();
+  @Override
+  public String apply(Subject subject) {
+    return subject.getName();
+  }
+}   
+```
+    
 
 ### D
  1) Table-Per-Hierarchy (TPH) (Used in this service - Diagram-1):
