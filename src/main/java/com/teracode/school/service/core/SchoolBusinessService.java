@@ -75,14 +75,14 @@ public interface SchoolBusinessService {
    * @return a {@link LinkedList} of {@link StudentLastNameOrderView}
    * corresponding to that group.
    */
-  LinkedList<StudentLastNameOrderView> getAllStudentsGroupByFirstLetterOfLastName();
+  List<Student> getAllStudentsGroupByFirstLetterOfLastName();
 
   /**
    * Point C
    *
    * @return {@link List} of {@link Student} that are registered in at least a {@link Subject}. Cannot be repeated.
    */
-  List<StudentEnrolledToSubjectView> getAllStudentsEnrolledToSubject();
+  List<Student> getAllStudentsEnrolledToSubject();
 
   /**
    * Point G

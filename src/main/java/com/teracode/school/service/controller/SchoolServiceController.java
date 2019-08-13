@@ -1,9 +1,10 @@
 package com.teracode.school.service.controller;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -21,8 +22,10 @@ import com.teracode.school.service.common.request.CreateTeacherRequest;
 import com.teracode.school.service.controller.function.*;
 import com.teracode.school.service.controller.function.view.ExpensesReportViewFunction;
 import com.teracode.school.service.core.SchoolBusinessService;
+import com.teracode.school.service.domain.model.Student;
 import com.teracode.school.service.domain.type.WorkingAreaType;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -93,9 +96,11 @@ public class SchoolServiceController implements SchoolService {
 
     LinkedHashMap<String, List<StudentLastNameOrderViewDTO>> allStudentsGroupByFirstLetterOfLastName =
         this.schoolBusinessService.getAllStudentsGroupByFirstLetterOfLastName().stream().map(
-            studentView -> new StudentLastNameOrderViewDTO(studentView.getAlpha(), studentView.getFirstName(),
-                studentView.getLastName(), studentView.getId()))
-            .collect(Collectors.groupingBy(StudentLastNameOrderViewDTO::getAlpha, LinkedHashMap::new, Collectors.toList()));
+            student -> new StudentLastNameOrderViewDTO(String.valueOf(student.getLastName().charAt(0)),
+                student.getFirstName(), student.getLastName(), student.getId()))
+            .sorted(Comparator.comparing(studentLastNameOrderViewDTO -> studentLastNameOrderViewDTO.getAlpha()))
+            .collect(
+                Collectors.groupingBy(StudentLastNameOrderViewDTO::getAlpha, LinkedHashMap::new, Collectors.toList()));
 
     return allStudentsGroupByFirstLetterOfLastName;
   }
@@ -103,10 +108,15 @@ public class SchoolServiceController implements SchoolService {
   @GetMapping(value = "/student/assigned")
   @Override
   public Set<StudentEnrolledToSubjectViewDTO> getAllStudentsEnrolledToSubject() {
-    return this.schoolBusinessService.getAllStudentsEnrolledToSubject().stream()
-        .map(studentEnrolledToSubjectView -> new StudentEnrolledToSubjectViewDTO(studentEnrolledToSubjectView.getSubjects(),
-            studentEnrolledToSubjectView.getFirstName(), studentEnrolledToSubjectView.getLastName(),
-            studentEnrolledToSubjectView.getId())).collect(Collectors.toSet());
+    return this.schoolBusinessService.getAllStudentsEnrolledToSubject().stream().filter(new Predicate<Student>() {
+      @Override
+      public boolean test(Student student) {
+        return !CollectionUtils.isEmpty(student.getSubjects());
+      }
+    }).map(studentEnrolledToSubjectView -> new StudentEnrolledToSubjectViewDTO(
+        studentEnrolledToSubjectView.getSubjects().stream().map(GetSubjectName.INSTANCE).collect(Collectors.toList()),
+        studentEnrolledToSubjectView.getFirstName(), studentEnrolledToSubjectView.getLastName(),
+        studentEnrolledToSubjectView.getId())).collect(Collectors.toSet());
   }
 
   @GetMapping(value = "/student/age/19-21")

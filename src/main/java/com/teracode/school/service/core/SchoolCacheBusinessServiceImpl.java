@@ -68,12 +68,12 @@ public class SchoolCacheBusinessServiceImpl implements SchoolBusinessService {
   }
 
   @Override
-  public LinkedList<StudentLastNameOrderView> getAllStudentsGroupByFirstLetterOfLastName() {
+  public List<Student> getAllStudentsGroupByFirstLetterOfLastName() {
     return schoolBusinessService.getAllStudentsGroupByFirstLetterOfLastName();
   }
 
   @Override
-  public List<StudentEnrolledToSubjectView> getAllStudentsEnrolledToSubject() {
+  public List<Student> getAllStudentsEnrolledToSubject() {
     return schoolBusinessService.getAllStudentsEnrolledToSubject();
   }
 

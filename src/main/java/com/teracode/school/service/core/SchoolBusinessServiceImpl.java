@@ -1,10 +1,11 @@
 package com.teracode.school.service.core;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -15,9 +16,7 @@ import com.google.common.base.Preconditions;
 import com.teracode.school.service.core.function.ExpensesReportViewModelFunction;
 import com.teracode.school.service.core.model.ExpensesReportViewModel;
 import com.teracode.school.service.domain.model.*;
-import com.teracode.school.service.domain.model.view.StudentEnrolledToSubjectView;
 import com.teracode.school.service.domain.model.view.StudentFrom19To21View;
-import com.teracode.school.service.domain.model.view.StudentLastNameOrderView;
 import com.teracode.school.service.domain.repository.*;
 import com.teracode.school.service.domain.type.WorkingAreaType;
 import org.springframework.stereotype.Service;
@@ -111,13 +110,13 @@ public class SchoolBusinessServiceImpl implements SchoolBusinessService {
   }
 
   @Override
-  public LinkedList<StudentLastNameOrderView> getAllStudentsGroupByFirstLetterOfLastName() {
-    return this.studentRepository.getAllStudentsGroupedByLastNameFirstLetter();
+  public List<Student> getAllStudentsGroupByFirstLetterOfLastName() {
+    return this.studentRepository.findAll();
   }
 
   @Override
-  public List<StudentEnrolledToSubjectView> getAllStudentsEnrolledToSubject() {
-    return this.studentRepository.getAllStudentsAssignedToSubject();
+  public List<Student> getAllStudentsEnrolledToSubject() {
+    return this.studentRepository.findAll();
   }
 
   @Override
