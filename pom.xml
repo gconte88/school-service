@@ -21,7 +21,7 @@
         <start.class>com.teracode.school.service.SchoolServiceApplication</start.class>
 
         <liquibase.version>3.7.0</liquibase.version>
-        <google.guava.version>28.0-jre</google.guava.version>
+        <google.guava.version>29.0-jre</google.guava.version>
         <lombok.version>1.18.8</lombok.version>
         <flyway.version>5.2.4</flyway.version>
 
